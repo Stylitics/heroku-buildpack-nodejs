@@ -182,6 +182,8 @@ echo $export_path > $build_dir/.profile.d/nodejs.sh
 echo $export_home >> $build_dir/.profile.d/nodejs.sh
 echo $export_path > $bp_dir/export
 echo $export_home >> $bp_dir/export
+echo "echo \"the path: \$PATH\"" >> $bp_dir/export
+echo "echo \"the npm:  \$(npm -v)\"" >> $bp_dir/export
 
 ####### Clean up
 
