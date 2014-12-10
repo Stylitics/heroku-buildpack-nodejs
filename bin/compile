@@ -180,8 +180,9 @@ export_path="export PATH=\"\$HOME/.heroku/node/bin:\$HOME/bin:\$HOME/node_module
 export_home="export NODE_HOME=\"\$HOME/.heroku/node\""
 echo $export_path > $build_dir/.profile.d/nodejs.sh
 echo $export_home >> $build_dir/.profile.d/nodejs.sh
-echo $export_path > $bp_dir/export
-echo $export_home >> $bp_dir/export
+
+echo "export PATH=\"\$(pwd)/.heroku/node/bin:\$(pwd)/node_modules/.bin:\$PATH\"" > $bp_dir/export
+echo "export NODE_HOME=\"\$(pwd)/.heroku/node\"" >> $bp_dir/export
 echo "echo \"the path: \$PATH\"" >> $bp_dir/export
 echo "echo \"the npm:  \$(npm -v)\"" >> $bp_dir/export
 
