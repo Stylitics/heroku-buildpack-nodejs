@@ -133,6 +133,16 @@ else
   use_cache=true
 fi
 
+head "Installing bundler and sass gems"
+export GEM_HOME="$BUILD_DIR/tmp/gems"
+export GEM_PATH=$GEM_HOME
+mkdir -p $GEM_HOME
+LANG="en_US.UTF-8" gem install --no-rdoc --no-ri bundler sass
+export PATH="/app/bin:$PATH:$GEM_PATH/bin"
+
+head "Bundling gems"
+bundle install
+
 if [ "$modules_source" == "" ]; then
   info "Skipping dependencies (no source for node_modules)"
 
@@ -183,16 +193,6 @@ info "Creating runtime environment"
 mkdir -p $build_dir/.profile.d
 echo "export PATH=\"\$HOME/.heroku/node/bin:\$HOME/bin:\$HOME/node_modules/.bin:\$PATH\"" > $build_dir/.profile.d/nodejs.sh
 echo "export NODE_HOME=\"\$HOME/.heroku/node\"" >> $build_dir/.profile.d/nodejs.sh
-
-head "Installing bundler and sass gems"
-export GEM_HOME="$BUILD_DIR/tmp/gems"
-export GEM_PATH=$GEM_HOME
-mkdir -p $GEM_HOME
-LANG="en_US.UTF-8" gem install --no-rdoc --no-ri bundler sass
-export PATH="/app/bin:$PATH:$GEM_PATH/bin"
-
-head "Bundling gems"
-bundle install
 
 info "Exporting binary paths"
 echo "export PATH=\"$build_dir/.heroku/node/bin:$build_dir/node_modules/.bin:\$PATH\"" > $bp_dir/export
